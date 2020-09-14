@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../../redux/actions";
+import { authActions } from "../../redux/actions/authActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const RegisterPage = () => {
@@ -60,7 +60,7 @@ const RegisterPage = () => {
               <FontAwesomeIcon icon="user" size="1x" /> Create Your Account
             </p>
           </div>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group>
               <Form.Control
                 type="text"
