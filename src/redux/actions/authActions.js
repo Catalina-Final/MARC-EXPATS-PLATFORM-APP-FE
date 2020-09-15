@@ -1,6 +1,20 @@
 import * as types from "../constants/authConstants";
 import api from "../api";
-// import { alertActions } from "./alert.actions";
+import { alertActions } from "./alertActions";
+
+const loginRequest = (email, password) => async (dispatch) => {
+  dispatch({ type: types.LOGIN_REQUEST, payload: null });
+  try {
+    const res = await api.post("/auth/login", { email, password });
+    const name = res.data.data.user.firstName;
+    dispatch(alertActions.setAlert(`Welcome ${name}`, "success"));
+    dispatch({ type: types.LOGIN_SUCCESS, payload: res.data.data });
+    api.defaults.headers.common["authorization"] =
+      "Bearer " + res.data.data.access_token;
+  } catch (error) {
+    dispatch({ type: types.LOGIN_FAILURE, payload: error });
+  }
+};
 
 const register = (surname, firstName, email, password) => async (dispatch) => {
   dispatch({ type: types.REGISTER_REQUEST, payload: null });
@@ -17,6 +31,13 @@ const register = (surname, firstName, email, password) => async (dispatch) => {
   }
 };
 
+const setRedirectTo = (redirectTo) => ({
+  type: types.SET_REDIRECT_TO,
+  payload: redirectTo,
+});
+
 export const authActions = {
   register,
+  setRedirectTo,
+  loginRequest
 };

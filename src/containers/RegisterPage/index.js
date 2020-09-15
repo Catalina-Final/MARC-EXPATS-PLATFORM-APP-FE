@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../redux/actions/authActions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -56,17 +56,28 @@ const RegisterPage = () => {
         <Col md={{ span: 6, offset: 3 }}>
           <div className="text-center mb-3">
             <h1 className="text-primary">Sign Up</h1>
-            <p className="lead">
-              <FontAwesomeIcon icon="user" size="1x" /> Create Your Account
-            </p>
+            <p className="lead"></p>
+            <h2> Create Your Account</h2>
           </div>
           <Form onSubmit={handleSubmit}>
             <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Name"
-                name="name"
-                value={formData.name}
+                placeholder="Surname"
+                name="surname"
+                value={formData.surname}
+                onChange={handleChange}
+              />
+              {errors.name && (
+                <small className="form-text text-danger">{errors.name}</small>
+              )}
+            </Form.Group>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="First Name"
+                name="firstName"
+                value={formData.firstName}
                 onChange={handleChange}
               />
               {errors.name && (
