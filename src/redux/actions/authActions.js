@@ -16,6 +16,34 @@ const loginRequest = (email, password) => async (dispatch) => {
   }
 };
 
+const loginFacebookRequest = (access_token) => async (dispatch) => {
+  dispatch({ type: types.LOGIN_FACEBOOK_REQUEST, payload: null });
+  try {
+    const res = await api.post("/auth/login/facebook", { access_token });
+    const name = res.data.data.user.name;
+    dispatch(alertActions.setAlert(`Welcome ${name}`, "success"));
+    dispatch({ type: types.LOGIN_FACEBOOK_SUCCESS, payload: res.data.data });
+    api.defaults.headers.common["authorization"] =
+      "Bearer " + res.data.data.accessToken;
+  } catch (error) {
+    dispatch({ type: types.LOGIN_FACEBOOK_FAILURE, payload: error });
+  }
+};
+
+const loginGoogleRequest = (access_token) => async (dispatch) => {
+  dispatch({ type: types.LOGIN_GOOGLE_REQUEST, payload: null });
+  try {
+    const res = await api.post("/auth/login/google", { access_token });
+    const name = res.data.data.user.name;
+    dispatch(alertActions.setAlert(`Welcome ${name}`, "success"));
+    dispatch({ type: types.LOGIN_GOOGLE_SUCCESS, payload: res.data.data });
+    api.defaults.headers.common["authorization"] =
+      "Bearer " + res.data.data.accessToken;
+  } catch (error) {
+    dispatch({ type: types.LOGIN_GOOGLE_FAILURE, payload: error });
+  }
+};
+
 const register = (surname, firstName, email, password) => async (dispatch) => {
   dispatch({ type: types.REGISTER_REQUEST, payload: null });
   try {
@@ -39,5 +67,7 @@ const setRedirectTo = (redirectTo) => ({
 export const authActions = {
   register,
   setRedirectTo,
-  loginRequest
+  loginRequest,
+  loginFacebookRequest,
+  loginGoogleRequest,
 };
