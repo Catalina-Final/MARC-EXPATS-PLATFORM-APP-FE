@@ -9,6 +9,7 @@ const RegisterPage = () => {
   const [formData, setFormData] = useState({
     surname: "",
     firstName: "",
+    gender: "",
     email: "",
     password: "",
     password2: "",
@@ -17,6 +18,7 @@ const RegisterPage = () => {
   const [errors, setErrors] = useState({
     name: "",
     email: "",
+    gender: "",
     password: "",
     password2: "",
   });
@@ -31,13 +33,13 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { surname, firstName, email, password, password2 } = formData;
+    const { surname, firstName, gender, email, password, password2 } = formData;
     if (password !== password2) {
       setErrors({ ...errors, password2: "Passwords do not match" });
       return;
     }
 
-    dispatch(authActions.register(surname, firstName, email, password));
+    dispatch(authActions.register(surname, firstName, gender, email, password));
   };
 
   useEffect(() => {
@@ -78,6 +80,18 @@ const RegisterPage = () => {
                 placeholder="First Name"
                 name="firstName"
                 value={formData.firstName}
+                onChange={handleChange}
+              />
+              {errors.name && (
+                <small className="form-text text-danger">{errors.name}</small>
+              )}
+            </Form.Group>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Gender"
+                name="gender"
+                value={formData.gender}
                 onChange={handleChange}
               />
               {errors.name && (

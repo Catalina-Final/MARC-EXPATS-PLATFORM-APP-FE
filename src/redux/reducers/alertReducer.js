@@ -1,4 +1,4 @@
-import * as types from "../constants/alert.constants";
+import * as types from "../constants/alertConstants";
 const initialState = [
   // { msg: "hello", alertType: "danger", id: "testing" }
 ];
