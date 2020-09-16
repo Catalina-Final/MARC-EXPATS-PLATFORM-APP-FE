@@ -49,7 +49,7 @@ const verifyEmail = (code) => async (dispatch) => {
   try {
     const res = await api.post("/users/verify_email", { code });
     dispatch({ type: types.VERIFY_EMAIL_SUCCESS, payload: res.data.data });
-    const name = res.data.data.user.name;
+    const name = res.data.data.user.firstName;
     dispatch(
       alertActions.setAlert(
         `Welcome, ${name}! Your email address has been verified.`,
