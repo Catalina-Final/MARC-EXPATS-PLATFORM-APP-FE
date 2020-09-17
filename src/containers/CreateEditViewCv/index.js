@@ -13,6 +13,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CountryDropdown } from "react-country-region-selector";
 import { useHistory, useParams } from "react-router-dom";
+import produce from "immer";
+import { authActions } from "../../redux/actions";
 
 export default function CreateCv() {
   const [formData, setFormData] = useState({
@@ -49,18 +51,21 @@ export default function CreateCv() {
     userImage: "",
   });
 
+  const dispatch = useDispatch();
+
   const uploadWidget = () => {
     window.cloudinary.openUploadWidget(
       {
         cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
         upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
-        tags: ["socialBlog", "blogImages"],
+        tags: ["cvPhoto"],
       },
       function (error, result) {
-        if (result && result.length) {
+        // console.log(result);
+        if (result && result.event === "success") {
           setFormData({
             ...formData,
-            images: result.map((res) => res.secure_url),
+            userImage: result.info.secure_url,
           });
         }
       }
@@ -74,11 +79,154 @@ export default function CreateCv() {
     });
   };
 
+  const handleChangeStartDate = (d) => {
+    setFormData({
+      ...formData,
+      experience: { ...formData.experience, beginningTime: d },
+    });
+  };
+
+  const handleChangeEndDate = (d) => {
+    setFormData({
+      ...formData,
+      experience: { ...formData.experience, endingTime: d },
+    });
+  };
+
+  const handleChangeDateOfCompletion = (d) => {
+    setFormData({
+      ...formData,
+      certifications: { ...formData.certifications, dateOfCompletion: d },
+    });
+  };
+
   const handleSelectCountry = (c) => {
     setFormData({
       ...formData,
       contactInfo: { ...formData.contactInfo, nationality: c },
     });
+  };
+
+  const handleChangeFullName = (e) => {
+    const fullName = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.contactInfo.fullName = fullName;
+      })
+    );
+  };
+
+  const handleChangeEmail = (e) => {
+    const email = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.contactInfo.email = email;
+      })
+    );
+  };
+
+  const handleChangeContactNo = (e) => {
+    const contactNo = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.contactInfo.contactNo = contactNo;
+      })
+    );
+  };
+
+  const handleChangeWard = (e) => {
+    const ward = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.contactInfo.address.ward = ward;
+      })
+    );
+  };
+
+  const handleChangeDistrict = (e) => {
+    const district = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.contactInfo.address.district = district;
+      })
+    );
+  };
+
+  const handleChangeCity = (e) => {
+    const city = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.contactInfo.address.city = city;
+      })
+    );
+  };
+
+  const handleChangeDegreeType = (e) => {
+    const degreeType = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.tertiaryEducation.degreeType = degreeType;
+      })
+    );
+  };
+
+  const handleChangeField = (e) => {
+    const field = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.tertiaryEducation.field = field;
+      })
+    );
+  };
+
+  const handleChangeEstablishment = (e) => {
+    const establishment = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.tertiaryEducation.establishment = establishment;
+      })
+    );
+  };
+
+  const handleChangeEduYear = (e) => {
+    const year = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.tertiaryEducation.year = year;
+      })
+    );
+  };
+
+  const handleChangeJobTitle = (e) => {
+    const jobTitle = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.experience.jobTitle = jobTitle;
+      })
+    );
+  };
+
+  const handleChangeEmployer = (e) => {
+    const employer = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.experience.employer = employer;
+      })
+    );
+  };
+
+  const handleChangeCertTitle = (e) => {
+    const certTitle = e.target.value;
+    setFormData((formData) =>
+      produce(formData, (draft) => {
+        draft.certifications.certTitle = certTitle;
+      })
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(authActions.submitCv(...formData));
   };
 
   const noOfYears = () => {
@@ -88,7 +236,9 @@ export default function CreateCv() {
     let years = [];
 
     for (let i = minYear; i <= maxYear; i++) {
-      years.push(<option value="year">{minYear++}</option>);
+      years.push(
+        <option value={formData.tertiaryEducation.year}>{minYear++}</option>
+      );
     }
     return years;
   };
@@ -97,22 +247,42 @@ export default function CreateCv() {
     <div>
       <h1>Create CV</h1>
 
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="fullName">
           <Form.Label>Full Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter your full name" />
+          <Form.Control
+            type="text"
+            name="contactInfo.fullName"
+            onChange={handleChangeFullName}
+            value={formData.contactInfo.fullName}
+            placeholder="Enter your full name"
+          />
         </Form.Group>
-        <DatePicker
-          selected={formData.contactInfo.dob}
-          onChange={handleDatePicker}
-        />
+        <Form.Group>
+          <DatePicker
+            selected={formData.contactInfo.dob}
+            onChange={handleDatePicker}
+          />
+        </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
-          <Form.Control type="text" placeholder="Enter your email address" />
+          <Form.Control
+            type="text"
+            name="contactInfo.email"
+            onChange={handleChangeEmail}
+            value={formData.contactInfo.email}
+            placeholder="Enter your email address"
+          />
         </Form.Group>
         <Form.Group controlId="contactNumber">
           <Form.Label>Contact Number</Form.Label>
-          <Form.Control type="text" placeholder="Enter your contact number" />
+          <Form.Control
+            type="text"
+            name="contactInfo.contactNo"
+            onChange={handleChangeContactNo}
+            value={formData.contactInfo.contactNo}
+            placeholder="Enter your contact number"
+          />
         </Form.Group>
         <CountryDropdown
           value={formData.contactInfo.nationality}
@@ -120,19 +290,43 @@ export default function CreateCv() {
         />
         <Form.Group controlId="ward">
           <Form.Label>Ward</Form.Label>
-          <Form.Control type="text" placeholder="Enter your ward" />
+          <Form.Control
+            type="text"
+            name="contactInfo.address.ward"
+            onChange={handleChangeWard}
+            value={formData.contactInfo.address.ward}
+            placeholder="Enter your ward"
+          />
         </Form.Group>
         <Form.Group controlId="district">
           <Form.Label>District</Form.Label>
-          <Form.Control type="text" placeholder="Enter your district" />
+          <Form.Control
+            type="text"
+            name="contactInfo.address.district"
+            onChange={handleChangeDistrict}
+            value={formData.contactInfo.address.district}
+            placeholder="Enter your district"
+          />
         </Form.Group>
         <Form.Group controlId="city">
-          <Form.Label>Ward</Form.Label>
-          <Form.Control type="text" placeholder="Enter your city" />
+          <Form.Label>City</Form.Label>
+          <Form.Control
+            type="text"
+            name="contactInfo.address.city"
+            onChange={handleChangeCity}
+            value={formData.contactInfo.address.city}
+            placeholder="Enter your city"
+          />
         </Form.Group>
         <Form.Group controlId="degreeType">
           <Form.Label>DegreeType</Form.Label>
-          <Form.Control as="select" placeholder="Degree type">
+          <Form.Control
+            as="select"
+            name="tertiaryEducation.degreeType"
+            onChange={handleChangeDegreeType}
+            value={formData.tertiaryEducation.degreeType}
+            placeholder="Degree type"
+          >
             <option value="doctorate">Doctorate</option>
             <option value="masters">masters</option>
             <option value="bachelors">bachelors</option>
@@ -142,54 +336,95 @@ export default function CreateCv() {
         </Form.Group>
         <Form.Group controlId="field">
           <Form.Label>Title</Form.Label>
-          <Form.Control type="text" placeholder="title" />
+          <Form.Control
+            type="text"
+            name="tertiaryEducation.field"
+            onChange={handleChangeField}
+            value={formData.tertiaryEducation.field}
+            placeholder="title"
+          />
         </Form.Group>
         <Form.Group controlId="establishment">
           <Form.Label>Establishment</Form.Label>
-          <Form.Control type="text" placeholder="establishment" />
+          <Form.Control
+            type="text"
+            name="tertiaryEducation.establishment"
+            onChange={handleChangeEstablishment}
+            value={formData.tertiaryEducation.establishment}
+            placeholder="establishment"
+          />
         </Form.Group>
         <Form.Group controlId="year">
           <Form.Label>Year</Form.Label>
-          <Form.Control as="select" placeholder="Year">
+          <Form.Control
+            as="select"
+            name="tertiaryEducation.year"
+            onChange={handleChangeEduYear}
+            // value={formData.tertiaryEducation.year}
+            placeholder="Year"
+          >
             {noOfYears()}
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="jobTitle">
           <Form.Label>Job title</Form.Label>
-          <Form.Control type="text" placeholder="job title" />
+          <Form.Control
+            type="text"
+            name="experience.jobTitle"
+            onChange={handleChangeJobTitle}
+            value={formData.experience.jobTitle}
+            placeholder="job title"
+          />
         </Form.Group>
         <Form.Group controlId="employer">
           <Form.Label>Employer</Form.Label>
-          <Form.Control type="text" placeholder="employer" />
+          <Form.Control
+            type="text"
+            name="experience.employer"
+            onChange={handleChangeEmployer}
+            value={formData.experience.employer}
+            placeholder="employer"
+          />
         </Form.Group>
         <Form.Group controlId="beginningTime">
           <Form.Label>Start Date</Form.Label>
           <DatePicker
             selected={formData.experience.beginningTime}
-            onChange={handleDatePicker}
+            onChange={handleChangeStartDate}
           />
         </Form.Group>
         <Form.Group controlId="endingTime">
           <Form.Label>End Date</Form.Label>
           <DatePicker
-            selected={formData.experience.endintTime}
-            onChange={handleDatePicker}
+            selected={formData.experience.endingTime}
+            onChange={handleChangeEndDate}
           />
         </Form.Group>
         <Form.Group controlId="certTitle">
           <Form.Label>Certificate</Form.Label>
-          <Form.Control type="text" placeholder="certificate" />
+          <Form.Control
+            type="text"
+            name="certifications.certTitle"
+            onChange={handleChangeCertTitle}
+            value={formData.certifications.certTitle}
+            placeholder="certificate"
+          />
         </Form.Group>
         <Form.Group controlId="dateOfCompletion">
           <Form.Label>Date of Completion</Form.Label>
           <DatePicker
             selected={formData.certifications.dateOfCompletion}
-            onChange={handleDatePicker}
+            onChange={handleChangeDateOfCompletion}
           />
         </Form.Group>
         <Form.Group>
           <Button variant="info" onClick={uploadWidget}>
             Add an Image
+          </Button>
+        </Form.Group>
+        <Form.Group>
+          <Button variant="info" type="submit">
+            Submit
           </Button>
         </Form.Group>
       </Form>
