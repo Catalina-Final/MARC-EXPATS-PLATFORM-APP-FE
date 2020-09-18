@@ -9,10 +9,9 @@ import {
   // Col,
   // ButtonGroup,
 } from "react-bootstrap";
+import { jobActions } from "../../redux/actions/jobActions";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { CountryDropdown } from "react-country-region-selector";
-import { useHistory, useParams } from "react-router-dom";
 import produce from "immer";
 
 const AddJobPage = () => {
@@ -36,6 +35,8 @@ const AddJobPage = () => {
     },
     jobBannerImage: "",
   });
+
+  const dispatch = useDispatch();
 
   const uploadWidget = () => {
     window.cloudinary.openUploadWidget(
@@ -162,9 +163,15 @@ const AddJobPage = () => {
     );
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(jobActions.submitJobAd(formData));
+  };
+
   return (
     <div>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="jobTitle">
           <Form.Label>job title</Form.Label>
           <Form.Control
