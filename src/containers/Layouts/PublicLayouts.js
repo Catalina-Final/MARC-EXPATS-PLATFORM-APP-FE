@@ -11,6 +11,7 @@ import DashboardPage from "../DashboardPage";
 import PrivateRoute from "../Routes/PrivateRoute";
 import VerifyEmailPage from "../VerifyEmailPage";
 import HomePage from "../HomePage";
+import AddJobPage from "../AddJobPage"
 
 const PublicLayout = () => {
   return (
@@ -20,6 +21,7 @@ const PublicLayout = () => {
         <AlertMsg />
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/user/employer/job" component={AddJobPage} />
           <Route exact path="/user/cv" component={CreateEditViewCv} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
