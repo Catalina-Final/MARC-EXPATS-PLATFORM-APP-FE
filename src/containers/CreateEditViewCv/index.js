@@ -4,51 +4,49 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Form,
   Button,
-  Container,
-  Row,
-  Col,
-  ButtonGroup,
+  // Container,
+  // Row,
+  // Col,
+  // ButtonGroup,
 } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CountryDropdown } from "react-country-region-selector";
 import { useHistory, useParams } from "react-router-dom";
 import produce from "immer";
-import { authActions } from "../../redux/actions";
+import { cvActions } from "../../redux/actions/cvActions";
 
 export default function CreateCv() {
   const [formData, setFormData] = useState({
     contactInfo: {
-      fullName: "",
+      fullName: "as",
       dob: null,
-      email: "",
-      contactNo: null,
+      email: "as@as.com",
+      contactNo: "as",
       nationality: "",
       address: {
-        streetNo: "",
-        streetName: "",
-        ward: "",
-        district: "",
-        city: "",
+        ward: "as",
+        district: "as",
+        city: "as",
       },
     },
     tertiaryEducation: {
       degreeType: "",
-      field: "",
-      establishment: "",
+      field: "as",
+      establishment: "as",
       year: null,
     },
     experience: {
-      jobTitle: "",
-      employer: "",
+      jobTitle: "as",
+      employer: "as",
       beginningTime: null,
       endingTime: null,
     },
     certifications: {
-      certTitle: "",
+      certTitle: "as",
       dateOfCompletion: null,
     },
-    userImage: "",
+    userImage: "https://res.cloudinary.com/div8ckicz/image/upload/v1600328157/finalProject/zrhjbc2fphxetauexg8w.jpg",
   });
 
   const dispatch = useDispatch();
@@ -226,7 +224,8 @@ export default function CreateCv() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(authActions.submitCv(...formData));
+
+    dispatch(cvActions.submitCv(formData));
   };
 
   const noOfYears = () => {
