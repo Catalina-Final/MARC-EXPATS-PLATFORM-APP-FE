@@ -17,7 +17,6 @@ import Navbar from "../PublicNavbar"
 const PublicLayout = () => {
   return (
     <>
-      {/* <PublicNavbar /> */}
       <Container>
         <Navbar/>
         <AlertMsg />
