@@ -16,24 +16,25 @@ import produce from "immer";
 
 const AddJobPage = () => {
   const [formData, setFormData] = useState({
-    jobOwnerId: "",
+    // jobOwnerId: "as",
     jobOverview: {
-      jobTitle: "",
-      salary: "",
-      location: "",
+      jobTitle: "as",
+      salary: "as",
+      location: "as",
       contractType: "",
-      employer: "",
+      employer: "as",
       startDate: "",
     },
     jobDetails: {
-      description: "",
-      requiredQualifications: "",
-      requiredSkills: "",
-      requiredCharacteristics: "",
-      incentives: "",
-      bonuses: "",
+      description: "as",
+      requiredQualifications: "as",
+      requiredSkills: "as",
+      requiredCharacteristics: "as",
+      incentives: "as",
+      bonuses: "as",
     },
-    jobBannerImage: "",
+    jobBannerImage:
+      "https://res.cloudinary.com/div8ckicz/image/upload/v1600328157/finalProject/zrhjbc2fphxetauexg8w.jpg",
   });
 
   const dispatch = useDispatch();
@@ -295,6 +296,11 @@ const AddJobPage = () => {
         <Form.Group>
           <Button variant="info" onClick={uploadWidget}>
             Add an Image
+          </Button>
+        </Form.Group>
+        <Form.Group>
+          <Button variant="info" type="submit">
+            Submit
           </Button>
         </Form.Group>
       </Form>

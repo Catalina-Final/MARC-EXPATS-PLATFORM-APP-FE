@@ -46,7 +46,14 @@ export default function CreateCv() {
       certTitle: "as",
       dateOfCompletion: null,
     },
-    userImage: "https://res.cloudinary.com/div8ckicz/image/upload/v1600328157/finalProject/zrhjbc2fphxetauexg8w.jpg",
+    userImage:
+      "https://res.cloudinary.com/div8ckicz/image/upload/v1600328157/finalProject/zrhjbc2fphxetauexg8w.jpg",
+  });
+
+  const [errors, setErrors] = useState({
+    dob: "",
+    contactNo: "",
+    endingTime: "",
   });
 
   const dispatch = useDispatch();
@@ -225,7 +232,46 @@ export default function CreateCv() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(cvActions.submitCv(formData));
+    const dob = formData.contactInfo.dob;
+    const contactNo = +formData.contactInfo.contactNo;
+    const startDate = formData.experience.beginningTime;
+    const endDate = formData.experience.endingTime;
+
+    validateDob(dob);
+    validateContactNo(contactNo);
+    validateWorkingPeriod(startDate, endDate);
+
+    //  dispatch(cvActions.submitCv(formData));
+  };
+
+  const validateDob = (dob) => {
+    const currentDate = Date.now();
+    const validationDate = 18 * 365 * 24 * 60 * 60 * 1000;
+
+    if (currentDate - dob < validationDate) {
+      setErrors({ ...errors, dob: "You must be older than 18" });
+      return;
+    }
+  };
+
+  const validateContactNo = (contactNo) => {
+    console.log(contactNo);
+
+    if (isNaN(contactNo)) {
+      console.log("wrong number");
+      setErrors({
+        ...errors,
+        contactNo: "Please enter a valid contact number",
+      });
+      return;
+    }
+  };
+
+  const validateWorkingPeriod = (startDate, endDate) => {
+    if (startDate > endDate) {
+      setErrors({ ...errors, endingTime: "Please enter a valid end date" });
+      return;
+    }
   };
 
   const noOfYears = () => {
@@ -250,6 +296,7 @@ export default function CreateCv() {
         <Form.Group controlId="fullName">
           <Form.Label>Full Name</Form.Label>
           <Form.Control
+            required
             type="text"
             name="contactInfo.fullName"
             onChange={handleChangeFullName}
@@ -258,7 +305,9 @@ export default function CreateCv() {
           />
         </Form.Group>
         <Form.Group>
+          <Form.Label>DOB</Form.Label>
           <DatePicker
+            required
             selected={formData.contactInfo.dob}
             onChange={handleDatePicker}
           />
@@ -266,7 +315,8 @@ export default function CreateCv() {
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
-            type="text"
+            required
+            type="email"
             name="contactInfo.email"
             onChange={handleChangeEmail}
             value={formData.contactInfo.email}
@@ -276,17 +326,26 @@ export default function CreateCv() {
         <Form.Group controlId="contactNumber">
           <Form.Label>Contact Number</Form.Label>
           <Form.Control
+            minLength={10}
+            maxLength={10}
             type="text"
             name="contactInfo.contactNo"
             onChange={handleChangeContactNo}
             value={formData.contactInfo.contactNo}
             placeholder="Enter your contact number"
           />
+          {errors.contactNo && (
+            <small className="form-text text-danger">{errors.contactNo}</small>
+          )}
         </Form.Group>
-        <CountryDropdown
-          value={formData.contactInfo.nationality}
-          onChange={(c) => handleSelectCountry(c)}
-        />
+        <Form.Group>
+          <Form.Label>Nationality</Form.Label>
+          <CountryDropdown
+            required
+            value={formData.contactInfo.nationality}
+            onChange={(c) => handleSelectCountry(c)}
+          />
+        </Form.Group>
         <Form.Group controlId="ward">
           <Form.Label>Ward</Form.Label>
           <Form.Control
@@ -310,6 +369,7 @@ export default function CreateCv() {
         <Form.Group controlId="city">
           <Form.Label>City</Form.Label>
           <Form.Control
+            required
             type="text"
             name="contactInfo.address.city"
             onChange={handleChangeCity}
@@ -320,6 +380,7 @@ export default function CreateCv() {
         <Form.Group controlId="degreeType">
           <Form.Label>DegreeType</Form.Label>
           <Form.Control
+            required
             as="select"
             name="tertiaryEducation.degreeType"
             onChange={handleChangeDegreeType}
@@ -336,6 +397,7 @@ export default function CreateCv() {
         <Form.Group controlId="field">
           <Form.Label>Title</Form.Label>
           <Form.Control
+            required
             type="text"
             name="tertiaryEducation.field"
             onChange={handleChangeField}
@@ -346,6 +408,7 @@ export default function CreateCv() {
         <Form.Group controlId="establishment">
           <Form.Label>Establishment</Form.Label>
           <Form.Control
+            required
             type="text"
             name="tertiaryEducation.establishment"
             onChange={handleChangeEstablishment}
@@ -356,6 +419,7 @@ export default function CreateCv() {
         <Form.Group controlId="year">
           <Form.Label>Year</Form.Label>
           <Form.Control
+            required
             as="select"
             name="tertiaryEducation.year"
             onChange={handleChangeEduYear}
@@ -368,6 +432,7 @@ export default function CreateCv() {
         <Form.Group controlId="jobTitle">
           <Form.Label>Job title</Form.Label>
           <Form.Control
+            required
             type="text"
             name="experience.jobTitle"
             onChange={handleChangeJobTitle}
@@ -378,6 +443,7 @@ export default function CreateCv() {
         <Form.Group controlId="employer">
           <Form.Label>Employer</Form.Label>
           <Form.Control
+            required
             type="text"
             name="experience.employer"
             onChange={handleChangeEmployer}
@@ -388,6 +454,7 @@ export default function CreateCv() {
         <Form.Group controlId="beginningTime">
           <Form.Label>Start Date</Form.Label>
           <DatePicker
+            required
             selected={formData.experience.beginningTime}
             onChange={handleChangeStartDate}
           />
@@ -395,6 +462,7 @@ export default function CreateCv() {
         <Form.Group controlId="endingTime">
           <Form.Label>End Date</Form.Label>
           <DatePicker
+            required
             selected={formData.experience.endingTime}
             onChange={handleChangeEndDate}
           />
@@ -402,6 +470,7 @@ export default function CreateCv() {
         <Form.Group controlId="certTitle">
           <Form.Label>Certificate</Form.Label>
           <Form.Control
+            required
             type="text"
             name="certifications.certTitle"
             onChange={handleChangeCertTitle}
@@ -412,6 +481,7 @@ export default function CreateCv() {
         <Form.Group controlId="dateOfCompletion">
           <Form.Label>Date of Completion</Form.Label>
           <DatePicker
+            required
             selected={formData.certifications.dateOfCompletion}
             onChange={handleChangeDateOfCompletion}
           />

@@ -12,12 +12,14 @@ import PrivateRoute from "../Routes/PrivateRoute";
 import VerifyEmailPage from "../VerifyEmailPage";
 import HomePage from "../HomePage";
 import AddJobPage from "../AddJobPage"
+import Navbar from "../PublicNavbar"
 
 const PublicLayout = () => {
   return (
     <>
       {/* <PublicNavbar /> */}
       <Container>
+        <Navbar/>
         <AlertMsg />
         <Switch>
           <Route exact path="/" component={HomePage} />
