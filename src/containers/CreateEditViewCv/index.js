@@ -246,19 +246,17 @@ export default function CreateCv() {
 
   const validateDob = (dob) => {
     const currentDate = Date.now();
-    const validationDate = 18 * 365 * 24 * 60 * 60 * 1000;
-
-    if (currentDate - dob < validationDate) {
+    const eighteenYears = 18 * 365 * 24 * 60 * 60;
+    const isValid = currentDate - dob < eighteenYears;
+    if (!isValid) {
       setErrors({ ...errors, dob: "You must be older than 18" });
       return;
     }
   };
 
   const validateContactNo = (contactNo) => {
-    console.log(contactNo);
 
     if (isNaN(contactNo)) {
-      console.log("wrong number");
       setErrors({
         ...errors,
         contactNo: "Please enter a valid contact number",
@@ -310,7 +308,9 @@ export default function CreateCv() {
             required
             selected={formData.contactInfo.dob}
             onChange={handleDatePicker}
-          />
+          />{errors.dob && (
+            <small className="form-text text-danger">{errors.dob}</small>
+          )}
         </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email</Form.Label>
@@ -465,7 +465,9 @@ export default function CreateCv() {
             required
             selected={formData.experience.endingTime}
             onChange={handleChangeEndDate}
-          />
+          />{errors.endingTime && (
+            <small className="form-text text-danger">{errors.endingTime}</small>
+          )}
         </Form.Group>
         <Form.Group controlId="certTitle">
           <Form.Label>Certificate</Form.Label>
