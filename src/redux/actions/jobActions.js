@@ -17,7 +17,7 @@ const submitJobAd = (formData) => async (dispatch) => {
 const updateEmployerInfo = (formData) => async (dispatch) => {
   dispatch({ type: types.SUBMIT_EMPLOYER_DETAILS_REQUEST, payload: null });
   try {
-    const res = await api.post("users/employer", {
+    const res = await api.post("/users/employer", {
       formData,
     });
     dispatch({ type: types.SUBMIT_EMPLOYER_DETAILS_SUCCESS, payload: res.data.data });
@@ -26,7 +26,18 @@ const updateEmployerInfo = (formData) => async (dispatch) => {
   }
 };
 
+const getJobs = () => async (dispatch) => {
+  dispatch({type: types.GET_ALL_JOBS_REQUEST, payload:null})
+  try {
+    const res = await api.get("/jobs")
+    dispatch({type: types.GET_ALL_JOBS_SUCCESS, payload: res.data.data})
+  } catch (error) {
+    dispatch({type: types.GET_ALL_JOBS_FAILURE, payload:null})
+  }
+}
+
 export const jobActions = {
   submitJobAd,
-  updateEmployerInfo
+  updateEmployerInfo, 
+  getJobs
 };

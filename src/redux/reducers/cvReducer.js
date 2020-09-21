@@ -5,13 +5,13 @@ const cvReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case types.SUBMIT_CV_REQUEST:
+    case types.UPDATE_CV_REQUEST:
       return { ...state, loading: true };
 
-    case types.SUBMIT_CV_SUCCESS:
+    case types.UPDATE_CV_SUCCESS:
       return { ...state, loading: false };
 
-    case types.SUBMIT_CV_FAILURE:
+    case types.UPDATE_CV_FAILURE:
       return { ...state, loading: false };
 
     default:

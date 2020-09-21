@@ -20,6 +20,22 @@ const register = (surname, firstName, gender, email, password) => async (
   }
 };
 
+const submitCv = (userId, cvId, jobId, recruiterId) => async (dispatch) => {
+  dispatch({ type: types.SUBMIT_CV_REQUEST, payload: null });
+  try {
+    const res = await api.post("/job/:id/submit", {
+      userId,
+      cvId,
+      jobId,
+      recruiterId,
+    });
+    dispatch({ type: types.SUBMIT_CV_SUCCESS, payload: res.data.data });
+  } catch (error) {
+    dispatch({ type: types.SUBMIT_CV_FAILURE, payload: null });
+  }
+};
+
 export const userActions = {
-    register,
-}
+  register,
+  submitCv
+};
