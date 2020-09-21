@@ -9,7 +9,7 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const jobList = useSelector((state) => state.job.jobList)
-  console.log("jobs", jobList)
+  // console.log("jobs", jobList)
   useEffect(() => {
     dispatch(jobActions.getJobs());
   }, []);
@@ -17,6 +17,8 @@ const HomePage = () => {
   const renderJobs = arr => arr.map(e =>  <AdCard 
     jobID={e._id} 
     jobOverview={e.jobOverview}
+    jobBannerImage={e.jobBannerImage}
+    jobDetails={e.jobDetails}
     /> )
   return (
     <div>

@@ -1,4 +1,5 @@
 import * as types from "../constants/authConstants";
+
 const initialState = {
   user: {},
   accessToken: localStorage.getItem("accessToken"),
@@ -35,7 +36,6 @@ const authReducer = (state = initialState, action) => {
     case types.LOGIN_FAILURE:
     case types.LOGIN_FACEBOOK_FAILURE:
     case types.LOGIN_GOOGLE_FAILURE:
-    case types.REGISTER_FAILURE:
       return { ...state, loading: false };
 
     default:
