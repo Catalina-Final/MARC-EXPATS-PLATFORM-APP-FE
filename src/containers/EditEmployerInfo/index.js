@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { employerActions } from "../../redux/actions";
+import { jobActions } from "../../redux/actions";
 import produce from "immer";
 
 const EmployerInfo = () => {
@@ -75,7 +75,7 @@ const EmployerInfo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(employerActions.updateEmployerInfo(formData));
+    dispatch(jobActions.updateEmployerInfo(formData));
   };
 
   return (
