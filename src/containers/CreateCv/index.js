@@ -241,7 +241,7 @@ export default function CreateCv() {
     validateContactNo(contactNo);
     validateWorkingPeriod(startDate, endDate);
 
-    //  dispatch(cvActions.submitCv(formData));
+    dispatch(cvActions.submitCv(formData));
   };
 
   const validateDob = (dob) => {
@@ -255,7 +255,6 @@ export default function CreateCv() {
   };
 
   const validateContactNo = (contactNo) => {
-
     if (isNaN(contactNo)) {
       setErrors({
         ...errors,
@@ -308,7 +307,8 @@ export default function CreateCv() {
             required
             selected={formData.contactInfo.dob}
             onChange={handleDatePicker}
-          />{errors.dob && (
+          />
+          {errors.dob && (
             <small className="form-text text-danger">{errors.dob}</small>
           )}
         </Form.Group>
@@ -465,7 +465,8 @@ export default function CreateCv() {
             required
             selected={formData.experience.endingTime}
             onChange={handleChangeEndDate}
-          />{errors.endingTime && (
+          />
+          {errors.endingTime && (
             <small className="form-text text-danger">{errors.endingTime}</small>
           )}
         </Form.Group>

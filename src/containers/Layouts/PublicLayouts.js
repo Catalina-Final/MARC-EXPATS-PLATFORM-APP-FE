@@ -1,6 +1,6 @@
 import React from "react";
 // import PublicNavbar from "../PublicNavbar";
-import CreateEditViewCv from "../CreateEditViewCv";
+import CreateCv from "../CreateCv";
 import LoginPage from "../LoginPage";
 import RegisterPage from "../RegisterPage";
 import { Container } from "react-bootstrap";
@@ -23,7 +23,7 @@ const PublicLayout = () => {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/user/employer/job" component={AddJobPage} />
-          <Route exact path="/user/cv" component={CreateEditViewCv} />
+          <Route exact path="/user/cv" component={CreateCv} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/verify/:code" component={VerifyEmailPage} />

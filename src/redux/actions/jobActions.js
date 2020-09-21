@@ -5,7 +5,7 @@ import api from "../api";
 const submitJobAd = (formData) => async (dispatch) => {
   dispatch({ type: types.SUBMIT_JOB_AD_REQUEST, payload: null });
   try {
-    const res = await api.post("/users/employer/job", {
+    const res = await api.post("/jobs/employer/submit", {
       formData,
     });
     dispatch({ type: types.SUBMIT_JOB_AD_SUCCESS, payload: res.data.data });
