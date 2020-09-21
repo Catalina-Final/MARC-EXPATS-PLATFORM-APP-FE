@@ -1,28 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/actions";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { jobActions } from "../../redux/actions";
+
 const JobDetailPage = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const job = useSelector((state) => state.job.jobDetails);
+
+  console.log(job);
 
   const dispatch = useDispatch();
 
-    const {id: jobID} = useParams()
-//   useEffect()
-//   //   recruiterID (target)
-//   //  UserLogin ID
-//   //  Cv ID
-//   //  Job Id
-//   const jobId = 
+  const { id: jobID } = useParams();
 
-//   const handleSubmitCv = (jobId) => {
-//     dispatch(userActions.submitCv());
-//   };
-  console.log(jobID)
+  useEffect(() => {
+    dispatch(jobActions.getSingleJob(jobID));
+  }, []);
+
+  //   //   recruiterID (target)
+  //   //  UserLogin ID
+  //   //  Cv ID
+  //   //  Job Id
+  //   const jobId =
+
+  //   const handleSubmitCv = (jobId) => {
+  //     dispatch(userActions.submitCv());
+  //   };
+  console.log(jobID);
+
+  if (!job) return <div>Loading Job</div>
+  
   return (
     <div>
-        hello
+      {job.jobOverview.jobTitle}
       {/* {isAuthenticated ? (
         <Button onClick={handleSubmitCv}>Submit</Button>
       ) : (

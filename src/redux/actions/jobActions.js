@@ -36,8 +36,19 @@ const getJobs = () => async (dispatch) => {
   }
 }
 
+const getSingleJob = (id) => async (dispatch) => {
+  dispatch({type: types.GET_SINGLE_JOB_REQUEST, payload:null})
+  try {
+    const res = await api.get(`/jobs/${id}`)
+    dispatch({type: types.GET_SINGLE_JOB_SUCCESS, payload: res.data.data})
+  } catch (error) {
+    dispatch({type: types.GET_SINGLE_JOB_FAILURE, payload:null})
+  }
+}
+
 export const jobActions = {
   submitJobAd,
   updateEmployerInfo, 
-  getJobs
+  getJobs, 
+  getSingleJob
 };

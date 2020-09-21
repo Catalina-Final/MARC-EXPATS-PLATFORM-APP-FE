@@ -14,7 +14,7 @@ const HomePage = () => {
     dispatch(jobActions.getJobs());
   }, []);
 
-  const renderJobs = arr => arr.map(e =>  <AdCard j
+  const renderJobs = arr => arr.map(e =>  <AdCard 
     jobID={e._id} 
     jobOverview={e.jobOverview}
     /> )
