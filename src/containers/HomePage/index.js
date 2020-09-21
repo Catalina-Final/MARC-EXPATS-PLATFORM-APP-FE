@@ -1,11 +1,13 @@
 import React from "react";
-import Jumbo from "../../components/Jumbo";
+import { Link } from "react-router-dom";
+import JumboSlider from "../../components/JumboSlider";
 
 const HomePage = () => {
   return (
     <div>
-      <Jumbo />
+      <JumboSlider />
       <h1>Home</h1>
+      <Link as={Link} to="/job/1">jobs</Link>
     </div>
   );
 };

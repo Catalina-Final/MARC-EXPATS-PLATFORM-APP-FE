@@ -102,7 +102,7 @@ const EmployerInfo = () => {
         <Form.Group controlId="companyWebsite">
           <Form.Label>companyWebsite</Form.Label>
           <Form.Control
-            type="email"
+            type="link"
             name="companyWebsite"
             onChange={handleChangeCompanyWebsite}
             placeholder="companyWebsite"

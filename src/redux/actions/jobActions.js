@@ -17,7 +17,7 @@ const submitJobAd = (formData) => async (dispatch) => {
 const updateEmployerInfo = (formData) => async (dispatch) => {
   dispatch({ type: types.SUBMIT_EMPLOYER_DETAILS_REQUEST, payload: null });
   try {
-    const res = await api.post("/employer", {
+    const res = await api.post("users/employer", {
       formData,
     });
     dispatch({ type: types.SUBMIT_EMPLOYER_DETAILS_SUCCESS, payload: res.data.data });

@@ -13,6 +13,8 @@ import VerifyEmailPage from "../VerifyEmailPage";
 import HomePage from "../HomePage";
 import AddJobPage from "../AddJobPage"
 import Navbar from "../PublicNavbar"
+import EditEmployerDetailsPage from "../EditEmployerInfo"
+import JobDetailPage from "../JobDetailPage"
 
 const PublicLayout = () => {
   return (
@@ -22,6 +24,8 @@ const PublicLayout = () => {
         <AlertMsg />
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/job/:id" component={JobDetailPage} />
+          <Route exact path="/user/employer/update" component={EditEmployerDetailsPage} />
           <Route exact path="/user/employer/job" component={AddJobPage} />
           <Route exact path="/user/cv" component={CreateCv} />
           <Route exact path="/login" component={LoginPage} />

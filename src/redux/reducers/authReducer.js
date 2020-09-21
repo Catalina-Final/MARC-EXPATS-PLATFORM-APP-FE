@@ -2,6 +2,7 @@ import * as types from "../constants/authConstants";
 const initialState = {
   user: {},
   accessToken: localStorage.getItem("accessToken"),
+  isAuthenticated: localStorage.getItem("accessToken") ? true : false,
   loading: false,
 };
 
@@ -22,11 +23,11 @@ const authReducer = (state = initialState, action) => {
       localStorage.setItem("accessToken", payload.accessToken);
       return {
         ...state,
+        isAuthenticated: true,
         user: {
           ...payload.user,
           accessToken: payload.accessToken,
           loading: false,
-          isAuthenticated: true,
         },
       };
 

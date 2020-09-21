@@ -9,8 +9,8 @@ import { FB_APP_ID, GOOGLE_CLIENT_ID } from "../../config/constants";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "as@as.com",
+    password: "123456",
   });
 
   const [errors, setErrors] = useState({
@@ -21,6 +21,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
+  // console.log(isAuthenticated)
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

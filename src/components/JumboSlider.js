@@ -1,14 +1,14 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
+import { Carousel, InputGroup, FormControl, Button } from "react-bootstrap";
 
 const JumboSlider = () => {
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <Carousel>
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="holder.js/800x400?text=First slide&bg=373940"
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.8ISWaLkJQTdI9i37LNMzSAHaEK%26pid%3DApi&f=1"
             alt="First slide"
           />
           <Carousel.Caption>
@@ -19,7 +19,7 @@ const JumboSlider = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="holder.js/800x400?text=Second slide&bg=282c34"
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VeaeqtAPfyJtw0_neF3TBQHaE8%26pid%3DApi&f=1"
             alt="Third slide"
           />
 
@@ -31,7 +31,7 @@ const JumboSlider = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="holder.js/800x400?text=Third slide&bg=20232a"
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.7aC2KbRKop9EiERY08TvnAHaE9%26pid%3DApi&f=1"
             alt="Third slide"
           />
 
@@ -43,6 +43,16 @@ const JumboSlider = () => {
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
+      <InputGroup style={{ position: "absolute", top: "50%" }} className="mb-3">
+        <FormControl
+          placeholder="Recipient's username"
+          aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+        />
+        <InputGroup.Append>
+          <Button variant="outline-secondary">Button</Button>
+        </InputGroup.Append>
+      </InputGroup>
     </div>
   );
 };
