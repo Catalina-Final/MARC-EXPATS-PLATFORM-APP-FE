@@ -13,18 +13,7 @@ const authReducer = (state = initialState, action) => {
     case types.LOGIN_REQUEST:
     case types.LOGIN_FACEBOOK_REQUEST:
     case types.LOGIN_GOOGLE_REQUEST:
-    case types.REGISTER_REQUEST:
       return { ...state, loading: true };
-
-    case types.REGISTER_SUCCESS:
-      localStorage.setItem("accessToken", payload.accessToken);
-      return {
-        ...state,
-        user: { ...payload.user },
-        accessToken: payload.accessToken,
-        loading: false,
-        isAuthenticated: true,
-      };
 
     case types.VERIFY_EMAIL_SUCCESS:
     case types.LOGIN_FACEBOOK_SUCCESS:

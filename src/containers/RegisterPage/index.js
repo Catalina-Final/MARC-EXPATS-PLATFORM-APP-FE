@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../redux/actions/userActions";
 import { authActions } from "../../redux/actions/authActions";
+
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const RegisterPage = () => {
@@ -39,7 +41,7 @@ const RegisterPage = () => {
       return;
     }
 
-    dispatch(authActions.register(surname, firstName, gender, email, password));
+    dispatch(userActions.register(surname, firstName, gender, email, password));
   };
 
   useEffect(() => {
