@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 // import logo from "../../images/logo.svg";
 import { useSelector } from "react-redux";
@@ -17,7 +17,7 @@ const PublicNavbar = () => {
   const authLinks = (
     <Nav>
       <Nav.Link as={Link} to="/admin/profile">
-        <FontAwesomeIcon icon="chart-line" size="sm" /> Admin
+        <FontAwesomeIcon icon="chart-line" size="sm" /> My Profile
       </Nav.Link>
       <Nav.Link onClick={handleLogout}>
         <FontAwesomeIcon icon="sign-out-alt" size="sm" /> Logout
@@ -36,17 +36,19 @@ const PublicNavbar = () => {
   );
 
   return (
-    <Navbar bg="light" expand="lg">
-      {/* <Navbar.Brand as={Link} to="/" className="mr-auto">
-        <img src={logo} alt="CoderSchool" width="200px" />
-      </Navbar.Brand> */}
-      <Nav.Link as={Link} to="/">Home</Nav.Link>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
+      <Navbar bg="primary" variant="dark" className="blue-gradient">
+        <Navbar.Brand as={Link} to="/">
+          Teach Saigon
+        </Navbar.Brand>
+        <Nav className="mr-auto">
         <Nav className="mr-auto"></Nav>
-        {!loading && <>{isAuthenticated ? authLinks : publicLinks}</>}
-      </Navbar.Collapse>
-    </Navbar>
+          {!loading && <>{isAuthenticated ? authLinks : publicLinks}</>}
+          
+        </Nav>
+        
+      </Navbar>
+
+     
   );
 };
 

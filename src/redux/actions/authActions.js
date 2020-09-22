@@ -16,6 +16,12 @@ const loginRequest = (email, password) => async (dispatch) => {
   }
 };
 
+const logout = () => (dispatch) => {
+  delete api.defaults.headers.common["authorization"];
+  localStorage.setItem("accessToken", "");
+  dispatch({ type: types.LOGOUT, payload: null });
+};
+
 const loginFacebookRequest = (access_token) => async (dispatch) => {
   dispatch({ type: types.LOGIN_FACEBOOK_REQUEST, payload: null });
   try {
@@ -74,4 +80,5 @@ export const authActions = {
   loginFacebookRequest,
   loginGoogleRequest,
   verifyEmail,
+  logout,
 };

@@ -38,6 +38,15 @@ const authReducer = (state = initialState, action) => {
     case types.LOGIN_GOOGLE_FAILURE:
       return { ...state, loading: false };
 
+    case types.LOGOUT:
+      return {
+        ...state,
+        accessToken: null,
+        isAuthenticated: false,
+        user: null,
+        loading: false,
+      };
+
     default:
       return state;
   }
