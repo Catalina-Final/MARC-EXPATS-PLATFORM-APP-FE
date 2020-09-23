@@ -7,14 +7,14 @@ import { Container } from "react-bootstrap";
 import { Switch, Route } from "react-router-dom";
 import NotFoundPage from "./NotFoundPage";
 import AlertMsg from "./AlertMsg";
-import DashboardPage from "../DashboardPage";
-import PrivateRoute from "../Routes/PrivateRoute";
+// import PrivateRoute from "../Routes/PrivateRoute";
 import VerifyEmailPage from "../VerifyEmailPage";
 import HomePage from "../HomePage";
 import AddJobPage from "../AddJobPage"
 import Navbar from "../PublicNavbar/navbarCore"
 import EditEmployerDetailsPage from "../EditEmployerInfo"
 import JobDetailPage from "../JobDetailPage"
+import ProfilePage from "../Admin/ProfilePage";
 
 const PublicLayout = () => {
   return (
@@ -31,8 +31,6 @@ const PublicLayout = () => {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/verify/:code" component={VerifyEmailPage} />
-          <PrivateRoute exact path="/dashboard" component={DashboardPage} />
-
           <Route component={NotFoundPage} />
         </Switch>
       </Container>

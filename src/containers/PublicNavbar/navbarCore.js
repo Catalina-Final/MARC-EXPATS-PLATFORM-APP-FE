@@ -27,7 +27,14 @@ const NavbarCore = () => {
     dispatch(authActions.logout());
   };
 
-  const authLink = <CNavLink onClick={handleLogout}>Logout</CNavLink>;
+  const authLink = (
+    <>
+      <CNavLink to="/profile">Profile</CNavLink>
+      <CNavLink to="/login" onClick={handleLogout}>
+        Logout
+      </CNavLink>
+    </>
+  );
 
   const publicLink = <CNavLink to="/login">Login</CNavLink>;
 
@@ -38,7 +45,7 @@ const NavbarCore = () => {
         <CNavbarBrand>Teach Saigon</CNavbarBrand>
         <CCollapse show={isOpen} navbar>
           <CNavbarNav>
-            <CNavLink>Home</CNavLink>
+            <CNavLink to="/">Home</CNavLink>
             {!loading && <>{isAuthenticated ? authLink : publicLink}</>}
           </CNavbarNav>
           <CNavbarNav className="ml-auto">

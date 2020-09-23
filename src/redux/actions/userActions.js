@@ -35,7 +35,18 @@ const submitCv = (userId, cvId, jobId, recruiterId) => async (dispatch) => {
   }
 };
 
+const getJobApps = (userId) => async (dispatch) => {
+  dispatch({ type: types.GET_JOB_APPS_REQUEST, payload: null });
+  try {
+    const res = await api.get("/users/me/jobapps", { userId });
+    dispatch({ type: types.GET_JOB_APPS_SUCCESS, payload: res.data.data });
+  } catch (error) {
+    dispatch({ type: types.GET_JOB_APPS_FAILURE, payload: null });
+  }
+};
+
 export const userActions = {
   register,
-  submitCv
+  submitCv,
+  getJobApps,
 };

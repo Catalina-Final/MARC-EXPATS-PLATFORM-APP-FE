@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardColumns, Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import CoreCarousel from "../../components/CoreCarousel";
 import { jobActions, employerActions } from "../../redux/actions";
 import AdCard from "../../components/AdCard";
