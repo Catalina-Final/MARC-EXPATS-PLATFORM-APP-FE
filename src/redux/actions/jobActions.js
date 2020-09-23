@@ -20,35 +20,74 @@ const updateEmployerInfo = (formData) => async (dispatch) => {
     const res = await api.post("/users/employer", {
       formData,
     });
-    dispatch({ type: types.SUBMIT_EMPLOYER_DETAILS_SUCCESS, payload: res.data.data });
+    dispatch({
+      type: types.SUBMIT_EMPLOYER_DETAILS_SUCCESS,
+      payload: res.data.data,
+    });
   } catch (error) {
     dispatch({ type: types.SUBMIT_EMPLOYER_DETAILS_FAILURE, payload: error });
   }
 };
 
-const getJobs = () => async (dispatch) => {
-  dispatch({type: types.GET_ALL_JOBS_REQUEST, payload:null})
+const getJobs = (
+  pageNum = 1,
+  limit = 9,
+  ownerId = null,
+  query = null,
+  sortBy = null
+) => async (dispatch) => {
+  dispatch({ type: types.GET_ALL_JOBS_REQUEST, payload: null });
   try {
-    const res = await api.get("/jobs")
-    dispatch({type: types.GET_ALL_JOBS_SUCCESS, payload: res.data.data})
+    let queryString = "";
+    if (query) {
+      queryString = `&title[$regex]=${query}&title[$options]=i`;
+    }
+    if (ownerId) {
+      queryString = `${queryString}&author=${ownerId}`;
+    }
+    let sortByString = "";
+    if (sortBy?.key) {
+      sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
+    }
+    const res = await api.get(
+      `/jobs?page=${pageNum}&limit=${limit}${queryString}${sortByString}`
+    );
+    dispatch({ type: types.GET_ALL_JOBS_SUCCESS, payload: res.data.data });
   } catch (error) {
-    dispatch({type: types.GET_ALL_JOBS_FAILURE, payload:null})
+    dispatch({ type: types.GET_ALL_JOBS_FAILURE, payload: null });
   }
-}
+};
 
 const getSingleJob = (id) => async (dispatch) => {
-  dispatch({type: types.GET_SINGLE_JOB_REQUEST, payload:null})
+  dispatch({ type: types.GET_SINGLE_JOB_REQUEST, payload: null });
   try {
-    const res = await api.get(`/jobs/${id}`)
-    dispatch({type: types.GET_SINGLE_JOB_SUCCESS, payload: res.data.data})
+    const res = await api.get(`/jobs/${id}`);
+    dispatch({ type: types.GET_SINGLE_JOB_SUCCESS, payload: res.data.data });
   } catch (error) {
-    dispatch({type: types.GET_SINGLE_JOB_FAILURE, payload:null})
+    dispatch({ type: types.GET_SINGLE_JOB_FAILURE, payload: null });
   }
-}
+};
+
+// userId - accessToken
+// jobId - params
+
+const submitCv = (jobId) => async (dispatch) => {
+  dispatch({ type: types.SUBMIT_CV_TO_EMPLOYER_REQUEST, payload: null });
+  try {
+    const res = await api.post(`/jobs/${jobId}/submitcv`);
+    dispatch({
+      type: types.SUBMIT_CV_TO_EMPLOYER_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch({ type: types.SUBMIT_CV_TO_EMPLOYER_FAILURE, payload: null });
+  }
+};
 
 export const jobActions = {
   submitJobAd,
-  updateEmployerInfo, 
-  getJobs, 
-  getSingleJob
+  updateEmployerInfo,
+  getJobs,
+  getSingleJob,
+  submitCv,
 };

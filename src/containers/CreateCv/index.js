@@ -250,8 +250,9 @@ export default function CreateCv() {
     const isValid = currentDate - dob < eighteenYears;
     if (!isValid) {
       setErrors({ ...errors, dob: "You must be older than 18" });
-      return;
+      return false;
     }
+    return true;
   };
 
   const validateContactNo = (contactNo) => {
@@ -260,15 +261,20 @@ export default function CreateCv() {
         ...errors,
         contactNo: "Please enter a valid contact number",
       });
-      return;
+      return false;
+    } else {
+      setErrors({...errors, contactNo: ""});
+      return true;
     }
+    
   };
 
   const validateWorkingPeriod = (startDate, endDate) => {
     if (startDate > endDate) {
       setErrors({ ...errors, endingTime: "Please enter a valid end date" });
-      return;
+      return false;
     }
+    return true;
   };
 
   const noOfYears = () => {
@@ -279,7 +285,9 @@ export default function CreateCv() {
 
     for (let i = minYear; i <= maxYear; i++) {
       years.push(
-        <option value={formData.tertiaryEducation.year}>{minYear++}</option>
+        <option key={i} value={formData.tertiaryEducation.year}>
+          {minYear++}
+        </option>
       );
     }
     return years;
