@@ -2,7 +2,7 @@ import * as types from "../constants/cvConstants";
 const initialState = [];
 
 const cvReducer = (state = initialState, action) => {
-  const { type, payload } = action;
+  const { type } = action;
 
   switch (type) {
     case types.UPDATE_CV_REQUEST:

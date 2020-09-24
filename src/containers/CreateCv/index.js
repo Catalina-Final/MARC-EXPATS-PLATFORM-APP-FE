@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 // import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 import {
   Form,
@@ -12,7 +12,7 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CountryDropdown } from "react-country-region-selector";
-import { useHistory, useParams } from "react-router-dom";
+// import { useHistory, useParams } from "react-router-dom";
 import produce from "immer";
 import { cvActions } from "../../redux/actions/cvActions";
 

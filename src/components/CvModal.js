@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Modal, Button, Table } from "react-bootstrap";
 
 const CvModal = ({ applicants, handleClose }) => {

@@ -14,7 +14,7 @@ import AddJobPage from "../AddJobPage"
 import Navbar from "../PublicNavbar/navbarCore"
 import EditEmployerDetailsPage from "../EditEmployerInfo"
 import JobDetailPage from "../JobDetailPage"
-import ProfilePage from "../Admin/ProfilePage";
+// import ProfilePage from "../Admin/ProfilePage";
 
 const PublicLayout = () => {
   return (

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useHistory, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { jobActions } from "../../../redux/actions";
 import { ClipLoader } from "react-spinners";
@@ -26,16 +26,16 @@ const EmployerJobPage = () => {
   };
 
   const handleApplicantArray = (e) => {
-    const bar = job.applicants.find(el => el._id === e)
-    const idx = applicantArray.findIndex(el => el._id === e); // real idx or -1
-    if(idx===-1){
-      setApplicantArray([...applicantArray, bar])
-    }else {
-      const foo = applicantArray.filter((_,index)=> index !==idx);
-      setApplicantArray(foo)
+    const bar = job.applicants.find((el) => el._id === e);
+    const idx = applicantArray.findIndex((el) => el._id === e); // real idx or -1
+    if (idx === -1) {
+      setApplicantArray([...applicantArray, bar]);
+    } else {
+      const foo = applicantArray.filter((_, index) => index !== idx);
+      setApplicantArray(foo);
     }
   };
-  console.log(applicantArray)
+  console.log(applicantArray);
   const handleGetCvData = () => {
     setModalShow(!modalShow);
   };
@@ -94,17 +94,17 @@ const EmployerJobPage = () => {
               <p>{job.jobDetails.bonuses}</p>
               <hr />
 
-              <Form
-              onChange={(e) => handleApplicantArray(e.target.value)}
-              >
+              <Form onChange={(e) => handleApplicantArray(e.target.value)}>
                 <ul>
                   {job.applicants.map((applicant) => (
-                    <li
-                       key={applicant._id}
-                    >
+                    <li key={applicant._id}>
                       {applicant.contactInfo.fullName}
 
-                      <Form.Check value={applicant._id} inline aria-label="option 1" />
+                      <Form.Check
+                        value={applicant._id}
+                        inline
+                        aria-label="option 1"
+                      />
                     </li>
                   ))}
                 </ul>

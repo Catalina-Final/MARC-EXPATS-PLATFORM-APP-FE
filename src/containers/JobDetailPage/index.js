@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useHistory, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { jobActions } from "../../redux/actions";
 import { Button } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import Moment from "react-moment";
-import Markdown from "react-markdown";
+// import Markdown from "react-markdown";
 
 const JobDetailPage = () => {
   const params = useParams();
@@ -13,7 +13,7 @@ const JobDetailPage = () => {
   const job = useSelector((state) => state.job.jobDetails);
   const loading = useSelector((state) => state.job.loading);
   // const currentUser = useSelector((state) => state.auth.user);
-  const submitLoading = useSelector((state) => state.job.subCVLoading);
+  // const submitLoading = useSelector((state) => state.job.subCVLoading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const history = useHistory();
 
@@ -63,14 +63,11 @@ const JobDetailPage = () => {
               <p>{job.jobDetails.incentives}</p>
               <p>{job.jobDetails.bonuses}</p>
               <hr />
-              
             </div>
           )}
 
           {isAuthenticated && (
-            <Button onClick={handleSubmitCv}>
-              Submit CV
-            </Button>
+            <Button onClick={handleSubmitCv}>Submit CV</Button>
           )}
         </>
       )}

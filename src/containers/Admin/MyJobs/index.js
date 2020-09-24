@@ -11,9 +11,9 @@ import Moment from "react-moment";
 const MyJobs = () => {
   const [pageNum, setPageNum] = useState(1);
   const [searchInput, setSearchInput] = useState("");
-  const [pendingJobs, setPendingJobs] = useState(false);
-  const [sortBy, setSortBy] = useState({ key: "", ascending: -1 });
-  const [query, setQuery] = useState("");
+  // const [pendingJobs, setPendingJobs] = useState(false);
+  const [setSortBy] = useState({ key: "", ascending: -1 });
+  const [setQuery] = useState("");
   const dispatch = useDispatch();
   const params = useParams();
   const loading = useSelector((state) => state.job.loading);

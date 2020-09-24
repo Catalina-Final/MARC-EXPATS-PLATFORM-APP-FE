@@ -3,7 +3,7 @@ import SearchItem from "../../../components/SearchFunction";
 import PaginationItem from "../../../components/PaginationItem";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../../redux/actions";
-import { Button, Row, Col, Container, Table, FormCheck } from "react-bootstrap";
+import { Row, Col, Container, Table } from "react-bootstrap";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams, Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -11,14 +11,13 @@ import Moment from "react-moment";
 const JobAppsPage = () => {
   const [pageNum, setPageNum] = useState(1);
   const [searchInput, setSearchInput] = useState("");
-  const [pendingJobs, setPendingJobs] = useState(false);
-  const [sortBy, setSortBy] = useState({ key: "", ascending: -1 });
-  const [query, setQuery] = useState("");
+  const [ setSortBy] = useState({ key: "", ascending: -1 });
+  const [ setQuery] = useState("");
   const dispatch = useDispatch();
   const params = useParams();
   const loading = useSelector((state) => state.job.loading);
   const jobs = useSelector((state) => state.user.jobApplications);
-  const currentUser = useSelector((state) => state.auth.user);
+  // const currentUser = useSelector((state) => state.auth.user);
   const totalPageNum = useSelector((state) => state.job.totalPageNum);
 
   const handleInputChange = (e) => {
@@ -42,8 +41,8 @@ const JobAppsPage = () => {
 
   useEffect(() => {
     dispatch(userActions.getJobApps(params.id));
-  }, []);
-  
+  }, [dispatch, params.id]);
+
   if (!jobs) return <></>;
   return (
     <Container fluid>
