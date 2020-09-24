@@ -2,6 +2,7 @@ import * as types from "../constants/jobConstants";
 const initialState = {
   jobList: [],
   jobDetails: null,
+  fullJobDetails: null,
   totalPageNum: 1,
 };
 
@@ -9,6 +10,7 @@ const jobReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case types.GET_SINGLE_JOB_WITH_APPLICANTS_REQUEST:
     case types.SUBMIT_CV_TO_EMPLOYER_REQUEST:
     case types.GET_SINGLE_JOB_REQUEST:
     case types.GET_ALL_JOBS_REQUEST:
@@ -16,8 +18,15 @@ const jobReducer = (state = initialState, action) => {
     case types.SUBMIT_JOB_AD_REQUEST:
       return { ...state, loading: true };
 
+    case types.GET_SINGLE_JOB_WITH_APPLICANTS_SUCCESS:
+      return { ...state, loading: false, fullJobDetails: payload };
+
     case types.GET_SINGLE_JOB_SUCCESS:
-      return { ...state, loading: false, jobDetails: payload };
+      return {
+        ...state,
+        loading: false,
+        jobDetails: payload,
+      };
     case types.GET_ALL_JOBS_SUCCESS:
       return {
         ...state,
@@ -30,6 +39,7 @@ const jobReducer = (state = initialState, action) => {
     case types.SUBMIT_JOB_AD_SUCCESS:
       return { ...state, loading: false };
 
+    case types.GET_SINGLE_JOB_WITH_APPLICANTS_FAILURE:
     case types.SUBMIT_CV_TO_EMPLOYER_FAILURE:
     case types.GET_SINGLE_JOB_FAILURE:
     case types.GET_ALL_JOBS_FAILURE:

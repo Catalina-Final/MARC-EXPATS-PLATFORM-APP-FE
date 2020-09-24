@@ -3,12 +3,12 @@ import SearchItem from "../../../components/SearchFunction";
 import PaginationItem from "../../../components/PaginationItem";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../../redux/actions";
-import { Button, Row, Col, Container, Table, FormCheck } from "react-bootstrap";
+import { Row, Col, Container, Table } from "react-bootstrap";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams, Link } from "react-router-dom";
 import Moment from "react-moment";
 
-const JobAppsPage = () => {
+const MyJobs = () => {
   const [pageNum, setPageNum] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [pendingJobs, setPendingJobs] = useState(false);
@@ -17,8 +17,7 @@ const JobAppsPage = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const loading = useSelector((state) => state.job.loading);
-  const jobs = useSelector((state) => state.user.jobApplications);
-  const currentUser = useSelector((state) => state.auth.user);
+  const myJobs = useSelector((state) => state.user.myJobs);
   const totalPageNum = useSelector((state) => state.job.totalPageNum);
 
   const handleInputChange = (e) => {
@@ -41,10 +40,10 @@ const JobAppsPage = () => {
   };
 
   useEffect(() => {
-    dispatch(userActions.getJobApps(params.id));
-  }, []);
-  
-  if (!jobs) return <></>;
+    dispatch(userActions.getMyJobs(params.id)); 
+  }, [dispatch, params.id]);
+
+  if (!myJobs) return <></>;
   return (
     <Container fluid>
       <h4 className="mt-3">View Job Applications</h4>
@@ -89,10 +88,10 @@ const JobAppsPage = () => {
               </tr>
             </thead>
             <tbody>
-              {jobs.map((job) => (
+              {myJobs.map((job) => (
                 <tr key={job._id}>
                   <td>
-                    <Link to={`/admin/jobs/${job._id}`}>
+                    <Link to={`/profile/myJobs/${job._id}`}>
                       {job.jobOverview.jobTitle}
                     </Link>
                   </td>
@@ -122,4 +121,4 @@ const JobAppsPage = () => {
   );
 };
 
-export default JobAppsPage;
+export default MyJobs;

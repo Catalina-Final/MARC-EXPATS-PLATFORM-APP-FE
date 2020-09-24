@@ -4,12 +4,14 @@ const initialState = {
   jobApplications: [],
   accessToken: localStorage.getItem("accessToken"),
   loading: false,
+  myJobs: [],
 };
 
 const userReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case types.GET_MY_JOBS_REQUEST:
     case types.GET_JOB_APPS_REQUEST:
     case types.REGISTER_REQUEST:
       return { ...state, loading: true };
@@ -22,6 +24,9 @@ const userReducer = (state = initialState, action) => {
         loading: false,
         isAuthenticated: true,
       };
+
+    case types.GET_MY_JOBS_SUCCESS:
+      return { ...state, loading: false, myJobs: payload };
 
     case types.GET_JOB_APPS_SUCCESS:
       return {

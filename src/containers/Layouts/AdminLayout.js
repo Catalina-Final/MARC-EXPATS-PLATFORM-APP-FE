@@ -7,6 +7,8 @@ import AlertMsg from "./AlertMsg";
 import ProfilePage from "../Admin/ProfilePage";
 import Sidebar from "../Admin/Sidebar";
 import JobAppsPage from "../Admin/JobAppsPage";
+import MyJobsPage from "../Admin/MyJobs";
+import EmployerJobPage from "../Admin/EmployerJobPage";
 // import FriendListPage from "../Admin/FriendListPage";
 // import AddEditBlogPage from "../AddEditBlogPage";
 // import BlogListPage from "../Admin/BlogListPage";
@@ -24,7 +26,14 @@ const AdminLayout = () => {
             <AlertMsg />
             <Switch>
               <Route exact path="/profile" component={ProfilePage} />
-              <Route exact path="/profile/pendingApplications" component={JobAppsPage} />
+              <Route
+                exact
+                path="/profile/pendingApplications"
+                component={JobAppsPage}
+              />
+              <Route exact path="/profile/myjobs" component={MyJobsPage} />
+              <Route exact path="/profile/myjobs/:id" component={EmployerJobPage} />
+
 
               {/* <Route exact path="/admin/friends" component={FriendListPage} />
               <Route exact path="/admin/blogs" component={BlogListPage} />

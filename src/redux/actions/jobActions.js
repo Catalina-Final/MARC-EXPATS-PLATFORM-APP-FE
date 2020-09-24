@@ -68,6 +68,25 @@ const getSingleJob = (id) => async (dispatch) => {
   }
 };
 
+const getSingleJobWithApplicants = (id) => async (dispatch) => {
+  dispatch({
+    type: types.GET_SINGLE_JOB_WITH_APPLICANTS_REQUEST,
+    payload: null,
+  });
+  try {
+    const res = await api.get(`/jobs/full/${id}`);
+    dispatch({
+      type: types.GET_SINGLE_JOB_WITH_APPLICANTS_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: types.GET_SINGLE_JOB_WITH_APPLICANTS_FAILURE,
+      payload: null,
+    });
+  }
+};
+
 // userId - accessToken
 // jobId - params
 
@@ -85,6 +104,7 @@ const submitCv = (jobId) => async (dispatch) => {
 };
 
 export const jobActions = {
+  getSingleJobWithApplicants,
   submitJobAd,
   updateEmployerInfo,
   getJobs,

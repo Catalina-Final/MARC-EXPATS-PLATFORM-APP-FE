@@ -45,8 +45,19 @@ const getJobApps = (userId) => async (dispatch) => {
   }
 };
 
+const getMyJobs = (userId) => async (dispatch) => {
+  dispatch({ type: types.GET_MY_JOBS_REQUEST, payload: null });
+  try {
+    const res = await api.get("/users/me/myjobs", { userId });
+    dispatch({ type: types.GET_MY_JOBS_SUCCESS, payload: res.data.data });
+  } catch (error) {
+    dispatch({ type: types.GET_MY_JOBS_FAILURE, payload: null });
+  }
+};
+
 export const userActions = {
   register,
   submitCv,
   getJobApps,
+  getMyJobs,
 };

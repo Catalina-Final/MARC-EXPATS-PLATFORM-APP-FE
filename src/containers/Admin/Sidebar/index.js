@@ -25,17 +25,17 @@ const Sidebar = () => {
       <Nav.Item>
         <Nav.Link
           as={NavLink}
-          to="/jobAds"
+          to="/profile/myjobs"
           activeClassName="active"
           strict={true}
         >
-          Job Ads
+          My Jobs
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link
           as={NavLink}
-          to="/app,icants"
+          to="/profile/applicants"
           activeClassName="active"
           strict={true}
         >
