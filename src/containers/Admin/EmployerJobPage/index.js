@@ -20,6 +20,11 @@ const EmployerJobPage = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const history = useHistory();
 
+  const handleDeleteJob = (jobId) => {
+    // TODO : popup confirmation modal
+    dispatch(jobActions.deleteJob(jobId));
+  };
+
   const handleEditJob = (e) => {
     e.preventDefault();
     dispatch(jobActions.submitCv(params.id));
@@ -94,21 +99,25 @@ const EmployerJobPage = () => {
               <p>{job.jobDetails.bonuses}</p>
               <hr />
 
-              <Form onChange={(e) => handleApplicantArray(e.target.value)}>
-                <ul>
-                  {job.applicants.map((applicant) => (
-                    <li key={applicant._id}>
-                      {applicant.contactInfo.fullName}
+              {job.applicant ? (
+                <Form onChange={(e) => handleApplicantArray(e.target.value)}>
+                  <ul>
+                    {job.applicants.map((applicant) => (
+                      <li key={applicant._id}>
+                        {applicant.contactInfo.fullName}
 
-                      <Form.Check
-                        value={applicant._id}
-                        inline
-                        aria-label="option 1"
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </Form>
+                        <Form.Check
+                          value={applicant._id}
+                          inline
+                          aria-label="option 1"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </Form>
+              ) : (
+                <h4>There are no applicants</h4>
+              )}
             </div>
           )}
 
@@ -116,6 +125,11 @@ const EmployerJobPage = () => {
           {isAuthenticated && (
             <Button onClick={() => handleGetCvData(applicantArray)}>
               Compare CVs
+            </Button>
+          )}
+          {isAuthenticated && (
+            <Button onClick={() => handleDeleteJob(params.id)}>
+              Delete Job
             </Button>
           )}
         </>

@@ -10,9 +10,9 @@ import {
 
 const CoreCarousel = () => {
   const slides = [
-    "./images/pim-chu-z6NZ76_UTDI-unsplash.jpg",
-    "./images/science-in-hd-_Ym6wla_GMQ-unsplash.jpg",
-    "./images/oskars-sylwan-p2i1obyNnHU-unsplash.jpg",
+    "http://kclui.com/IVEST/ITP4208/images/BS4Carousel/carousel-1.jpg",
+    "http://kclui.com/IVEST/ITP4208/images/BS4Carousel/carousel-2.jpg",
+    "http://kclui.com/IVEST/ITP4208/images/BS4Carousel/carousel-3.jpg",
   ];
 
   return (

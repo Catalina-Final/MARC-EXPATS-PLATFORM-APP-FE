@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchItem from "../../../components/SearchFunction";
 import PaginationItem from "../../../components/PaginationItem";
 import { useSelector, useDispatch } from "react-redux";
-import { userActions } from "../../../redux/actions";
+import { userActions, jobActions } from "../../../redux/actions";
 import { Row, Col, Container, Table } from "react-bootstrap";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams, Link } from "react-router-dom";
@@ -13,7 +13,7 @@ const MyJobs = () => {
   const [searchInput, setSearchInput] = useState("");
   // const [pendingJobs, setPendingJobs] = useState(false);
   const [setSortBy] = useState({ key: "", ascending: -1 });
-  const [setQuery] = useState("");
+  const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const params = useParams();
   const loading = useSelector((state) => state.job.loading);
@@ -42,6 +42,10 @@ const MyJobs = () => {
   useEffect(() => {
     dispatch(userActions.getMyJobs(params.id)); 
   }, [dispatch, params.id]);
+
+  useEffect(() => {
+    dispatch(jobActions.getJobs(pageNum, 10, query));
+  }, [dispatch, pageNum, query]);
 
   if (!myJobs) return <></>;
   return (

@@ -1,6 +1,6 @@
 import * as types from "../constants/jobConstants";
 import api from "../api";
-// import { alertActions } from "./alertActions";
+import { alertActions } from "./alertActions";
 
 const submitJobAd = (formData) => async (dispatch) => {
   dispatch({ type: types.SUBMIT_JOB_AD_REQUEST, payload: null });
@@ -54,7 +54,7 @@ const getJobs = (
     );
     dispatch({ type: types.GET_ALL_JOBS_SUCCESS, payload: res.data.data });
   } catch (error) {
-    dispatch({ type: types.GET_ALL_JOBS_FAILURE, payload: null });
+    dispatch({ type: types.GET_ALL_JOBS_FAILURE, payload: error });
   }
 };
 
@@ -64,7 +64,7 @@ const getSingleJob = (id) => async (dispatch) => {
     const res = await api.get(`/jobs/${id}`);
     dispatch({ type: types.GET_SINGLE_JOB_SUCCESS, payload: res.data.data });
   } catch (error) {
-    dispatch({ type: types.GET_SINGLE_JOB_FAILURE, payload: null });
+    dispatch({ type: types.GET_SINGLE_JOB_FAILURE, payload: error });
   }
 };
 
@@ -82,7 +82,7 @@ const getSingleJobWithApplicants = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.GET_SINGLE_JOB_WITH_APPLICANTS_FAILURE,
-      payload: null,
+      payload: error,
     });
   }
 };
@@ -99,7 +99,21 @@ const submitCv = (jobId) => async (dispatch) => {
       payload: res.data.data,
     });
   } catch (error) {
-    dispatch({ type: types.SUBMIT_CV_TO_EMPLOYER_FAILURE, payload: null });
+    dispatch({ type: types.SUBMIT_CV_TO_EMPLOYER_FAILURE, payload: error });
+  }
+};
+
+const deleteJob = (jobId) => async (dispatch) => {
+  dispatch({ type: types.DELETE_JOB_REQUEST, payload: null });
+  try {
+    const res = await api.delete(`/jobs/${jobId}`);
+    dispatch({
+      type: types.DELETE_JOB_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(alertActions.setAlert("The blog has been deleted!", "success"));
+  } catch (error) {
+    dispatch({ type: types.DELETE_JOB_FAILURE, payload: error });
   }
 };
 
@@ -110,4 +124,5 @@ export const jobActions = {
   getJobs,
   getSingleJob,
   submitCv,
+  deleteJob
 };

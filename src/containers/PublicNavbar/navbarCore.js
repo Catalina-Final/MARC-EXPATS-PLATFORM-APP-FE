@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../../redux/actions";
+import { authActions, jobActions } from "../../redux/actions";
+import SearchItem from "../../components/SearchFunction";
 
 import {
   CNavbarNav,
@@ -12,20 +13,36 @@ import {
   CDropdownMenu,
   CNavLink,
   CForm,
-  CInput,
-  CButton,
   CDropdownItem,
   CDropdownToggle,
 } from "@coreui/react";
 
 const NavbarCore = () => {
+  const [pageNum, setPageNum] = useState(1);
+  const [searchInput, setSearchInput] = useState("");
+  const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
+
   const handleLogout = () => {
     dispatch(authActions.logout());
   };
+
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    setPageNum(1);
+    setQuery(searchInput);
+    // dispatch(blogActions.blogsRequest(1));
+  };
+
+  useEffect(() => {
+    dispatch(jobActions.getJobs(pageNum, 10, query));
+  }, [dispatch, pageNum, query]);
 
   const authLink = (
     <>
@@ -50,10 +67,12 @@ const NavbarCore = () => {
           </CNavbarNav>
           <CNavbarNav className="ml-auto">
             <CForm inline>
-              <CInput className="mr-sm-2" placeholder="Search" size="sm" />
-              <CButton color="light" className="my-2 my-sm-0" type="submit">
-                Search
-              </CButton>
+              <SearchItem
+                searchInput={searchInput}
+                handleInputChange={handleInputChange}
+                handleSubmit={handleSubmitSearch}
+                loading={loading}
+              />
             </CForm>
             <CDropdown inNav>
               <CDropdownToggle color="primary">EN</CDropdownToggle>
@@ -62,13 +81,6 @@ const NavbarCore = () => {
                 <CDropdownItem>ES</CDropdownItem>
                 <CDropdownItem>RU</CDropdownItem>
                 <CDropdownItem>FA</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-            <CDropdown inNav>
-              <CDropdownToggle color="primary">User</CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem>Account</CDropdownItem>
-                <CDropdownItem>Settings</CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
           </CNavbarNav>

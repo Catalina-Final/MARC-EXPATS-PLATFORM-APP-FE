@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Col } from "react-bootstrap";
+import {CButton} from "@coreui/react"
 
 const SearchItem = ({
   searchInput,
@@ -20,16 +21,16 @@ const SearchItem = ({
           />
         </Col>
         {loading ? (
-          <Button variant="primary" type="button" disabled>
+          <CButton variant="primary" type="button" disabled>
             <span
               className="spinner-border spinner-border-sm"
               role="status"
               aria-hidden="true"
             ></span>
             Searching...
-          </Button>
+          </CButton>
         ) : (
-          <Button type="submit">Search</Button>
+          <CButton color="light" className="my-2 my-sm-0" type="submit">Search</CButton>
         )}
       </Form.Row>
     </Form>
@@ -37,3 +38,6 @@ const SearchItem = ({
 };
 
 export default SearchItem;
+
+
+             

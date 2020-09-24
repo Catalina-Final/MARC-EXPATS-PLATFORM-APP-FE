@@ -1,7 +1,7 @@
-/* .cardImg {
+.cardImg {
   height: 96px;
   width: 96px;
-} */
+}
 
 div [class^="col-"] {
   padding-left: 5px;
@@ -59,3 +59,4 @@ div [class^="col-"] {
 .card:focus::after {
   transform: scale3d(1, 1, 1);
 }
+
