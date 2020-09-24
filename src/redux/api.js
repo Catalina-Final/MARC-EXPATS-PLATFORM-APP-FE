@@ -3,7 +3,7 @@ import store from "./store";
 import { alertActions } from "./actions/alertActions";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_API + "api",
+  baseURL: process.env.REACT_APP_BACKEND_API + "/api",
   headers: {
     "Content-Type": "application/json",
     // authorization: "Bearer "+ localStorage.getItem("accessToken")
