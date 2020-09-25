@@ -8,7 +8,7 @@ const AdCardFinal = ({
   jobBannerImage,
   jobDetails,
   createdAt,
-}) => {
+}) => { 
   const history = useHistory();
 
   return (

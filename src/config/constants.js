@@ -1,9 +1,9 @@
-export const FB_APP_ID = "252113819289877";
+export const FB_APP_ID = "357534298620428";
 
 export const GOOGLE_CLIENT_ID =
-  "785386346216-l4fc765ollu5kkp6a4a9f5pcmgatks0t.apps.googleusercontent.com";
+  "932385015228-kqe5clnp8p6dpf2ecck40ph958el60kn.apps.googleusercontent.com";
 
-export const friendListTabNames = {
+  export const friendListTabNames = {
   FRIENDS: "FRIEND_LIST.TAB_KEY.FRIENDS",
   ALL_USERS: "FRIEND_LIST.TAB_KEY.ALL_USERS",
   SENT_REQUESTS: "FRIEND_LIST.TAB_KEY.SENT_REQUESTS",
